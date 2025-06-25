@@ -2,9 +2,14 @@ from google.genai.types import Content, Part
 
 async def call_agent_async(runner, user_id, session_id, user_input):
     user_content = Content(parts=[Part(text=user_input)], role="user")
-    async for event in runner.run_async(user_id=user_id, session_id=session_id, new_message=user_content):
+    async for event in runner.run_async(
+        user_id=user_id,
+        session_id=session_id,
+        new_message=user_content
+    ):
         if event.is_final_response() and event.content and event.content.parts:
             print("Assistant:", event.content.parts[0].text)
+
 
 
 
